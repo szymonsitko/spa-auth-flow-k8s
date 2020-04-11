@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - auth_server
+    volumes:
+      - ./client/index.html:/usr/share/nginx/html/index.html
+  auth_server:
+    build:
+      context: ./auth_server
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./auth_server:/usr/src/app

@@ -26,6 +26,7 @@ describe("sign_in endpoint", () => {
     it("should return valid response", async () => {
       const { body, status } = await supertest(app)
         .post("/auth/sign_in")
+        .set("Content-Type", "application/json")
         .send(userData);
 
       expect(status).toEqual(200);

@@ -22,6 +22,7 @@ describe("sign_up endpoint", () => {
       };
       const { body, status } = await supertest(app)
         .post("/auth/sign_up")
+        .set("Content-Type", "application/json")
         .send(userBody);
 
       expect(status).toEqual(200);
@@ -41,7 +42,7 @@ describe("sign_up endpoint", () => {
 
       const { success, trace } = body;
       expect(success).toBeFalsy();
-      expect(trace).toEqual("Unable to sign up new user.");
+      expect(trace).toEqual("Unable to process request.");
     });
   });
 });

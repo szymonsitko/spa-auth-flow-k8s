@@ -1,13 +1,16 @@
-const validFields = ["username", "email", "password"];
-const validatePayload = (source, toCompare) =>
-  Object.keys(source).every((each) => toCompare.includes(each));
+const validatePayload = (source) => {
+  if (!source.username || !source.email || !source.password) {
+    return false;
+  }
+  return true;
+};
 
 const validateBody = (req, res, next) => {
   const { body } = req;
-  if (!validatePayload(body, validFields)) {
+  if (!validatePayload(body)) {
     return res
       .status(400)
-      .json({ success: false, trace: "Unable to sign up new user." });
+      .json({ success: false, trace: "Unable to process request." });
   }
   next();
 };

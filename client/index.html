@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPA Auth Flow</title>
+</head>
+
+<body>
+  <section>
+    <h1>Authentication</h1>
+    <p>Is user authenticated? <span id="auth-text">False</span></p>
+  </section>
+
+  <script>
+    const userBody = JSON.stringify({
+      username: "user",
+      email: "email@dot.com",
+      password: "pass"
+    });
+
+    fetch('auth/sign_up', {
+      method: "POST",
+      body: userBody,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(result => {
+      result.json().then(result => {
+        fetch('auth/sign_in', {
+          method: "POST",
+          body: userBody,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(result => {
+          result.json().then(result => {  
+            const authText = document.querySelector("#auth-text");
+            authText.textContent = "True";
+          })
+        }).catch(err => console.log(err));
+      });
+    }).catch(err => console.log(err));
+  </script>
+</body>
+
+</html>
