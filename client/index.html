@@ -35,9 +35,18 @@
             'Content-Type': 'application/json',
           },
         }).then(result => {
-          result.json().then(result => {  
-            const authText = document.querySelector("#auth-text");
-            authText.textContent = "True";
+          result.json().then(result => {
+            const { access_token, type } = result.tokens;
+            fetch('resources', {
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': access_token
+              }
+            }).then(async result => {
+              const authText = document.querySelector("#auth-text");
+              authText.textContent = "True";
+            })
           })
         }).catch(err => console.log(err));
       });

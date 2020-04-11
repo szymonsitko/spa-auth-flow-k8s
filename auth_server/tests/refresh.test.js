@@ -23,37 +23,43 @@ describe("sign_in endpoint", () => {
   });
 
   describe("when body payload is valid", () => {
-    it("should return valid response", async () => {
+    it("should return valid response with new access_token", async () => {
+      const refreshToken = jwt.sign(
+        {
+          tokenType: "refresh_token",
+          exp: Math.floor(Date.now() / 1000) + 60 * 15,
+        },
+        process.env.SECRET_KEY
+      );
       const { body, status } = await supertest(app)
-        .post("/auth/sign_in")
+        .post("/auth/refresh")
         .set("Content-Type", "application/json")
-        .send(userData);
+        .send({ refresh_token: refreshToken, type: "Bearer" });
 
       expect(status).toEqual(200);
-      
-      const { refresh_token, access_token, type } = body.tokens;
-      const validateRefreshToken = jwt.verify(refresh_token, process.env.SECRET_KEY);
-      const validateAccessToken = jwt.verify(access_token, process.env.SECRET_KEY);
 
-      expect(validateRefreshToken.tokenType).toEqual("refresh_token");
-      expect(validateAccessToken.tokenType).toEqual("access_token");
+      const { access_token, type } = body.tokens;
+      const validateNewAccessToken = jwt.verify(
+        access_token,
+        process.env.SECRET_KEY
+      );
+
+      expect(validateNewAccessToken.tokenType).toEqual("access_token");
       expect(type).toEqual("Bearer");
     });
   });
 
   describe("when body payload is invalid", () => {
     it("should return fail response", async () => {
-      const { body, status } = await supertest(app).post("/auth/sign_in").send({
-        username: "non",
-        email: "existent",
-        password: "user"
+      const { body, status } = await supertest(app).post("/auth/refresh").send({
+        refresh_token: "invalid token", type: "Bearer"
       });
 
-      expect(status).toEqual(401);
+      expect(status).toEqual(400);
 
       const { success, message } = body;
       expect(success).toBeFalsy();
-      expect(message).toEqual("Not authorized.");
+      expect(message).toEqual("Unable to refresh access token.");
     });
   });
 });

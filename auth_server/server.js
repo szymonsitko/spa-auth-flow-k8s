@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
-const { validateBody } = require("./middleware");
 const { authRouter } = require("./routers");
 
 const createServer = () => {
@@ -12,7 +11,6 @@ const createServer = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(morgan("common"));
 
-  app.use(validateBody);
   app.use("/auth", authRouter);
 
   return app;

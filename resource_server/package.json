@@ -1,0 +1,25 @@
+{
+  "name": "resource_server",
+  "version": "0.0.1",
+  "description": "Simple resource server for Auth flow",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "author": "Szymon Sitko",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "^9.0.0",
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-logger": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "jest": "^25.3.0",
+    "supertest": "^4.0.2"
+  }
+}

@@ -16,3 +16,9 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./auth_server:/usr/src/app
+  resource_server:
+    build:
+      context: ./resource_server
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./resource_server:/usr/src/app
