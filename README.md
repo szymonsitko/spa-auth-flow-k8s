@@ -2,9 +2,17 @@
 
 This repository contains three different Rest services:
 
-    - auth_service - NodeJS (Express.js) service that manages user authentication nad       manages access and resfresh token (both JWT)
-    - resource_server - Which accepts access token and gives access to requested resource when authorized
-    - client - basic frontend served by Nginx
+**auth_service**
+
+NodeJS (Express.js) service that manages user authentication nad       manages access and resfresh token (both JWT)
+
+**resource_server**
+
+Koa.js service which accepts access token and gives access to requested resource when authorized
+
+**client**
+
+basic frontend served by Nginx
 
 ## Development locally
 
