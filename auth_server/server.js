@@ -11,7 +11,7 @@ const createServer = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(morgan("common"));
 
-  app.use("/auth", authRouter);
+  app.use("/", authRouter);
 
   return app;
 };

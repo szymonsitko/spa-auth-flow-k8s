@@ -1,5 +1,5 @@
 # Assign environmental variables
-ENV_VAR_VALUE=$2
+ENV_VAR_VALUE=$1
 
 # Create secret
 kubectl create secret generic secretkey --from-literal SECRET_KEY=$ENV_VAR_VALUE

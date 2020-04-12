@@ -21,7 +21,7 @@ describe("sign_up endpoint", () => {
         password: "somepass",
       };
       const { body, status } = await supertest(app)
-        .post("/auth/sign_up")
+        .post("/sign_up")
         .set("Content-Type", "application/json")
         .send(userBody);
 
@@ -34,7 +34,7 @@ describe("sign_up endpoint", () => {
 
   describe("when body payload is invalid", () => {
     it("should return fail response", async () => {
-      const { body, status } = await supertest(app).post("/auth/sign_up").send({
+      const { body, status } = await supertest(app).post("/sign_up").send({
         invalid: "body",
       });
 

@@ -15,7 +15,7 @@ describe("sign_in endpoint", () => {
 
   beforeAll(async () => {
     app = createServer();
-    await supertest(app).post("/auth/sign_up").send(userData);
+    await supertest(app).post("/sign_up").send(userData);
   });
 
   afterAll(() => {
@@ -32,7 +32,7 @@ describe("sign_in endpoint", () => {
         process.env.SECRET_KEY
       );
       const { body, status } = await supertest(app)
-        .post("/auth/refresh")
+        .post("/refresh")
         .set("Content-Type", "application/json")
         .send({ refresh_token: refreshToken, type: "Bearer" });
 
@@ -51,7 +51,7 @@ describe("sign_in endpoint", () => {
 
   describe("when body payload is invalid", () => {
     it("should return fail response", async () => {
-      const { body, status } = await supertest(app).post("/auth/refresh").send({
+      const { body, status } = await supertest(app).post("/refresh").send({
         refresh_token: "invalid token", type: "Bearer"
       });
 

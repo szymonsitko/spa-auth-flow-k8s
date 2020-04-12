@@ -15,7 +15,7 @@ describe("authorize access", () => {
   describe("when request can be authorized", () => {
     it("should return generic app message and ok status code", async () => {
       const { body, status } = await supertest(app.callback())
-        .get("/resources")
+        .get("/")
         .set("Authorization", jwt.sign({ tokenType: "access_token" }, process.env.SECRET_KEY));
 
       expect(status).toEqual(200);
@@ -29,7 +29,7 @@ describe("authorize access", () => {
   describe("when request cannot be authorized", () => {
     it("should return not authorized code and error message", async() => {
       const { body, status } = await supertest(app.callback())
-        .get("/resources")
+        .get("/")
 
       expect(status).toEqual(401);
       expect(body.trace).toEqual("Not authorized to access resource server.");

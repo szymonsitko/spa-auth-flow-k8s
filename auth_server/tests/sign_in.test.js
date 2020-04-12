@@ -15,7 +15,7 @@ describe("sign_in endpoint", () => {
 
   beforeAll(async () => {
     app = createServer();
-    await supertest(app).post("/auth/sign_up").send(userData);
+    await supertest(app).post("/sign_up").send(userData);
   });
 
   afterAll(() => {
@@ -25,7 +25,7 @@ describe("sign_in endpoint", () => {
   describe("when body payload is valid", () => {
     it("should return valid response", async () => {
       const { body, status } = await supertest(app)
-        .post("/auth/sign_in")
+        .post("/sign_in")
         .set("Content-Type", "application/json")
         .send(userData);
 
@@ -43,7 +43,7 @@ describe("sign_in endpoint", () => {
 
   describe("when body payload is invalid", () => {
     it("should return fail response", async () => {
-      const { body, status } = await supertest(app).post("/auth/sign_in").send({
+      const { body, status } = await supertest(app).post("/sign_in").send({
         username: "non",
         email: "existent",
         password: "user"

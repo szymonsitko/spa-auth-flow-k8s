@@ -1,6 +1,6 @@
 const Router = require('@koa/router');
 
-const router = new Router({ prefix: "/resources" });
+const router = new Router();
 router.all('/', (ctx, ) => {
   ctx.status = 200;
   ctx.body = {
