@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: auth-server
+  template:
+    metadata:
+      labels:
+        component: auth-server
+    spec:
+      containers:
+        - name: auth
+          image: szymonsitko/auth-server
+          ports:
+            - containerPort: 5000
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secretkey
+                  key: SECRET_KEY

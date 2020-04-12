@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resource-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: resource-server
+  template:
+    metadata:
+      labels:
+        component: resource-server
+    spec:
+      containers:
+        - name: resource
+          image: szymonsitko/auth-resource
+          ports:
+            - containerPort: 5000
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secretkey
+                  key: SECRET_KEY

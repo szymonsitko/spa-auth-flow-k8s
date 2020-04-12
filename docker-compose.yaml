@@ -5,9 +5,10 @@ services:
       context: ./client
       dockerfile: ./Dockerfile
     ports:
-      - "80:80"
+      - "3000:3000"
     depends_on:
       - auth_server
+      - resource_server
     volumes:
       - ./client/index.html:/usr/share/nginx/html/index.html
   auth_server:
